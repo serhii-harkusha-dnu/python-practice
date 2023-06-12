@@ -1,4 +1,5 @@
-﻿# Лінійний обчислювальний процес
+﻿# Робота на GITHUB - https://github.com/serhii-harkusha-dnu/python-practice/tree/main
+# Лінійний обчислювальний процес
 # Студнента групи КМ-22-1
 # Гаркуші Сергія
 import math

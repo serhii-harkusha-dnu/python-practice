@@ -1,3 +1,7 @@
+# Робота на GITHUB - https://github.com/serhii-harkusha-dnu/python-practice/tree/main
+# Функції
+# Студента групи КМ-22-1
+# Гаркуші Сергія
 import math
 
 def f(u: float, t: float) -> float:

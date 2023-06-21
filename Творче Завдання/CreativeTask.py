@@ -2,6 +2,7 @@
 # Творче завдання
 # Студента групи КМ-22-1
 # Гаркуші Сергія
+import math
 import string
 
 def characterInList(character, allowedCharacters):
@@ -15,9 +16,11 @@ def skipSpaces(inputString: str, position: int):
         position += 1
     return position
 
-def readString(inputString: str, position: int, allowedCharacters: list):
+def readString(inputString: str, position: int, allowedCharacters: list, maxCharacters = 1000):
     symbol = "";
-    while position < len(inputString) and characterInList(inputString[position], allowedCharacters):
+    while position < len(inputString) \
+            and characterInList(inputString[position], allowedCharacters) \
+            and len(symbol) < maxCharacters:
         symbol += inputString[position]
         position += 1
     position = skipSpaces(inputString, position)
@@ -43,6 +46,8 @@ def performOperation(firstArgument, secondArgument, operator):
             return firstArgument * secondArgument
         case '/':
             return firstArgument / secondArgument
+        case '^':
+            return math.pow(firstArgument, secondArgument)
         case _:
             raise Exception(f"Unknown operator {operator}")
 
@@ -55,7 +60,7 @@ def calculateVariable(inputString, availableVariables):
     operatorStack = []
     firstArgumentStack = []
     bracketPositionStack = []
-    prioritizedOperators = ['+', '-', '*', '/']
+    prioritizedOperators = ['+', '-', '*', '/', '^']
     
     expectNumber = True
     while position < len(inputString):
@@ -82,7 +87,7 @@ def calculateVariable(inputString, availableVariables):
             if position >= len(inputString):
                 break
 
-            currentOperator, position = readString(inputString, position, prioritizedOperators)
+            currentOperator, position = readString(inputString, position, prioritizedOperators, 1)
             while len(operatorStack) > 0 \
                     and (len(bracketPositionStack) == 0 or len(operatorStack) > bracketPositionStack[len(bracketPositionStack) - 1]) \
                     and prioritizedOperators.index(operatorStack[len(operatorStack)-1]) >= prioritizedOperators.index(currentOperator):
@@ -108,7 +113,7 @@ def printHelp():
     print("Example:")
     print("\tx = 1.5")
     print("\ty = 3")
-    print("\tf = x + y / (x * y - 1)")
+    print("\tf = x + y / (x * y^0.5 - 1)")
     print("Enter variables to calculate. Leave empty to exit.")
 
 printHelp()
